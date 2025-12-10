@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Quiz Game</string>
+
+    <!-- Main Activity -->
+    <string name="title_main">🎯 QUIZ GAME</string>
+    <string name="btn_start">Mulai Kuis</string>
+    <string name="btn_scores">Skor Tertinggi</string>
+
+    <!-- Quiz Activity -->
+    <string name="question_number">Pertanyaan %1$d/%2$d</string>
+    <string name="score">Skor: %1$d</string>
+    <string name="btn_next">Selanjutnya</string>
+    <string name="toast_select_answer">Pilih jawaban terlebih dahulu!</string>
+    <string name="toast_correct">✓ Benar!</string>
+    <string name="toast_wrong">✗ Salah! Jawaban: %1$s</string>
+
+    <!-- Result Activity -->
+    <string name="title_result">🎉 KUIS SELESAI!</string>
+    <string name="final_score">%1$d/%2$d</string>
+    <string name="percentage">%1$d%%</string>
+    <string name="btn_play_again">Main Lagi</string>
+    <string name="btn_home">Kembali ke Menu</string>
+
+    <!-- Dialog -->
+    <string name="dialog_exit_title">Keluar dari Kuis?</string>
+    <string name="dialog_exit_message">Progress akan hilang jika keluar sekarang</string>
+    <string name="dialog_yes">Ya</string>
+    <string name="dialog_no">Tidak</string>
+    <string name="dialog_ok">OK</string>
+
+    <!-- Top Scores -->
+    <string name="top_scores_title">🏆 Top 5 Skor Tertinggi</string>
+    <string name="no_scores">Belum ada skor tersimpan</string>
+</resources>
