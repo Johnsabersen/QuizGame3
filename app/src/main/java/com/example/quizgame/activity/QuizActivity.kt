@@ -16,6 +16,7 @@ class QuizActivity : AppCompatActivity() {
     private var questions = listOf<Question>()
     private var currentQuestionIndex = 0
     private var score = 0
+    private var playerName = "Player" // ✅ Default name
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,13 +24,14 @@ class QuizActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         dbHelper = DatabaseHelper(this)
+
+        // ✅ Ambil nama player dari Intent
+        playerName = intent.getStringExtra("PLAYER_NAME") ?: "Player"
+
         loadQuestions()
         displayQuestion()
-
-        // ✅ Setup listener untuk RadioGroup
         setupRadioGroupListener()
 
-        // ✅ Tombol awalnya disabled
         binding.btnNext.isEnabled = false
         binding.btnNext.alpha = 0.5f
 
@@ -59,19 +61,14 @@ class QuizActivity : AppCompatActivity() {
             binding.radioC.text = question.optionC
             binding.radioD.text = question.optionD
 
-            // ✅ Clear pilihan sebelumnya
             binding.radioGroup.clearCheck()
-
-            // ✅ Disable tombol sampai user pilih
             binding.btnNext.isEnabled = false
             binding.btnNext.alpha = 0.5f
         }
     }
 
-    // ✅ Setup listener untuk enable/disable tombol
     private fun setupRadioGroupListener() {
-        binding.radioGroup.setOnCheckedChangeListener { group, checkedId ->
-            // Enable tombol jika ada yang dipilih
+        binding.radioGroup.setOnCheckedChangeListener { _, checkedId ->
             val isSelected = checkedId != -1
             binding.btnNext.isEnabled = isSelected
             binding.btnNext.alpha = if (isSelected) 1.0f else 0.5f
@@ -108,6 +105,7 @@ class QuizActivity : AppCompatActivity() {
 
     private fun finishQuiz() {
         val intent = Intent(this, ResultActivity::class.java)
+        intent.putExtra("PLAYER_NAME", playerName) // ✅ Kirim nama ke ResultActivity
         intent.putExtra("SCORE", score)
         intent.putExtra("TOTAL", questions.size)
         startActivity(intent)

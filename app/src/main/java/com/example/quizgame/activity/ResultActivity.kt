@@ -14,6 +14,7 @@ class ResultActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityResultBinding
     private lateinit var dbHelper: DatabaseHelper
+    private var playerName: String = "Player" // ✅ Simpan nama player
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,6 +23,8 @@ class ResultActivity : AppCompatActivity() {
 
         dbHelper = DatabaseHelper(this)
 
+        // ✅ Ambil data dari Intent
+        playerName = intent.getStringExtra("PLAYER_NAME") ?: "Player"
         val score = intent.getIntExtra("SCORE", 0)
         val total = intent.getIntExtra("TOTAL", 10)
         val percentage = (score.toFloat() / total * 100).toInt()
@@ -29,29 +32,43 @@ class ResultActivity : AppCompatActivity() {
         binding.tvFinalScore.text = "$score/$total"
         binding.tvPercentage.text = "$percentage%"
 
-        // Simpan skor ke database
-        saveScore(score)
+        // ✅ Simpan skor dengan nama player
+        saveScore(playerName, score)
 
+        // ✅ Tombol "Main Lagi" - Langsung ke QuizActivity dengan nama yang sama
         binding.btnPlayAgain.setOnClickListener {
-            val intent = Intent(this, QuizActivity::class.java)
-            startActivity(intent)
-            finish()
+            playAgainWithSameName()
         }
 
+        // ✅ Tombol "Kembali ke Menu" - Ke MainActivity
         binding.btnHome.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-            startActivity(intent)
-            finish()
+            backToHome()
         }
     }
 
-    private fun saveScore(score: Int) {
+    // ✅ Main lagi dengan nama yang sama (tidak perlu input nama lagi)
+    private fun playAgainWithSameName() {
+        val intent = Intent(this, QuizActivity::class.java)
+        intent.putExtra("PLAYER_NAME", playerName) // ✅ Kirim nama yang sama
+        startActivity(intent)
+        finish() // Tutup ResultActivity
+    }
+
+    // ✅ Kembali ke menu utama (MainActivity)
+    private fun backToHome() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_NEW_TASK
+        startActivity(intent)
+        finish()
+    }
+
+    // ✅ Simpan skor dengan nama player
+    private fun saveScore(playerName: String, score: Int) {
         val dateFormat = SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault())
         val currentDate = dateFormat.format(Date())
 
         val scoreData = Score(
-            playerName = "Player",
+            playerName = playerName,
             score = score,
             date = currentDate
         )
@@ -59,11 +76,9 @@ class ResultActivity : AppCompatActivity() {
         dbHelper.insertScore(scoreData)
     }
 
-    @Deprecated("This method has been deprecated in favor of using the\n      {@link OnBackPressedDispatcher} via {@link #getOnBackPressedDispatcher()}.\n      The OnBackPressedDispatcher controls how back button events are dispatched\n      to one or more {@link OnBackPressedCallback} objects.")
+    @Deprecated("This method has been deprecated in favor of using the OnBackPressedDispatcher")
     override fun onBackPressed() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP
-        startActivity(intent)
-        finish()
+        // Ketika tekan back, kembali ke MainActivity
+        backToHome()
     }
 }

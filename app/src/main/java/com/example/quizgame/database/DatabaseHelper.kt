@@ -129,6 +129,13 @@ class DatabaseHelper(context: Context) : SQLiteOpenHelper(
 
     // ==================== SCORES METHODS ====================
 
+    fun deleteAllScores(): Int {
+        val db = writableDatabase
+        return db.delete(QuizContract.ScoresTable.TABLE_NAME, null, null)
+    }
+
+    // ==================== SCORES METHODS ====================
+
     fun insertScore(score: Score): Long {
         val db = writableDatabase
         val values = ContentValues().apply {
