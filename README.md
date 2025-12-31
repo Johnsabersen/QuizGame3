@@ -1,10 +1,6 @@
 📖 Tentang Project
-Quiz Game adalah aplikasi kuis Android berbasis Kotlin dan SQLite.
-Aplikasi ini dirancang untuk pembelajaran interaktif dengan sistem skor, feedback visual, dan leaderboard.
-Cocok untuk:
-- Project kuliah
-- Portofolio Android Developer
-- Latihan SQLite & UI Android
+Quiz Game adalah aplikasi kuis Android berbasis Kotlin dan SQLite. Aplikasi ini dirancang untuk pembelajaran interaktif dengan sistem skor, feedback visual, dan leaderboard.
+Aplikasi kuis ini hadir untuk mengubah kebiasaan bermain smartphone yang kurang produktif menjadi sarana belajar yang menyenangkan bagi masyarakat. Dengan konsep permainan, pengguna dapat menambah wawasan dan mengasah otak melalui tantangan interaktif yang bisa diakses kapan saja. Proyek ini bertujuan menciptakan cara belajar yang lebih ringan namun efektif untuk meningkatkan ilmu pengetahuan masyarakat secara luas.
 
 ✨ Fitur Utama
 🎯 Gameplay
